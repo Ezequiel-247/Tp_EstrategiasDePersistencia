@@ -4,7 +4,7 @@ const router = Router();
 //este archivo es para un router general, que a la vez contiene a los demas.
 
 
-// Agrega los routers aca
+// Agrega los routers aca 
 // por ejemplo -> const publicacionRoutes = require('./publicacionesRoutes');
 const usuarioRouter = require('./usuarioRouter');
 
