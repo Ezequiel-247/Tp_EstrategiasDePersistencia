@@ -1,0 +1,14 @@
+const usuarioSchema = require('./schema/usuarioSchema')
+
+
+//revisar si falta algo
+
+const validarUsuario = (req, res, next) => {
+    const { error } = usuarioSchema.validate(req.body)
+    if(error){
+        return res.status(400).json({message: 'Datos inválidos'})
+    }
+    next()
+}
+
+module.exports = validarUsuario
