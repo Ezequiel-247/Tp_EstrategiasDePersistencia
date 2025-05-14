@@ -20,7 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Etiqueta.init({
-    nombre: DataTypes.STRING
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [1,50]
+      },
+      unique: true
+    }
   }, {
     sequelize,
     modelName: 'Etiqueta',
