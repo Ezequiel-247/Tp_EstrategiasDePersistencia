@@ -22,8 +22,8 @@ const obtenerUsuarios = async (req, res) => {
 const obtenerUsuario = async (req, res) => {
     const idUsuario = req.params.id
     try {
-      const usuarios = await Usuario.findByPk(idLibro);
-      res.json(libros);
+      const usuarios = await Usuario.findByPk(idUsuario);
+      res.json(usuarios);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
