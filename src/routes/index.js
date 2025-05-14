@@ -11,5 +11,4 @@ const usuarioRouter = require('./usuarioRouter');
 //agregar el uso de los routers
 //por ejemplo -> router.use('/publicacion', publicacionRoutes);
 router.use('/usuario', usuarioRouter);
-
 module.exports = router;

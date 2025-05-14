@@ -3,9 +3,12 @@ const app = express();
 const db = require('./db/models') //base de datos
 //revisar que funcione lo de abajo
 const routers = require('./routes'); //rutas
+
+app.use(express.json()) // para que la api pueda leer json
+
 app.use('/api', routers); //uso de las rutas
 
-//app.use(express.json()) habilitar cuando este el middleware
+
 
 //configurar variable de entorno
 
