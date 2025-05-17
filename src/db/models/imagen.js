@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       
       this.belongsTo(models.Publicacion,{
         foreignKey: "publicacionId", //esta bien
-        as: "publicacion"
+        as: "imagenes"
       })
     }
   }

@@ -1,4 +1,4 @@
-const usuarioSchema = require('./schema/usuarioSchema')
+const usuarioSchema = require("./schemas/usuarioSchema")
 
 const validarUsuario = (req, res, next) => {
     const { error } = usuarioSchema.validate(req.body)

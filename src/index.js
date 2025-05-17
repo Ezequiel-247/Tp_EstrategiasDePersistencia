@@ -1,13 +1,17 @@
 const express = require("express");
 const app = express();
 const db = require('./db/models') //base de datos
-//revisar que funcione lo de abajo
-const routers = require('./routes'); //rutas
+const publicacionRouter = require("./routes/publicacionRouter")
+const usuarioRouter = require("./routes/usuarioRouter")
+const etiquetaRouter = require("./routes/etiquetaRouter")
+const comentarioRouter = require("./routes/comentarioRouter")
 
 app.use(express.json()) // para que la api pueda leer json
 
-app.use('/usuario', routers); //uso de las rutas usuario
-
+app.use('/usuario', usuarioRouter); //uso de las rutas usuario
+app.use('/publicacion',publicacionRouter);
+app.use('/etiqueta', etiquetaRouter);
+app.use('/comentario',comentarioRouter);
 
 
 //configurar variable de entorno
