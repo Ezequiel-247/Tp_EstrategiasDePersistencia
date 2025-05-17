@@ -6,4 +6,5 @@ const usuarioSchema = Joi.object({
     contraseña: Joi.string().min(6).max(20).required()
     //Completado falta chequear
 });
+
 module.exports = usuarioSchema;

@@ -3,9 +3,9 @@ const usuarioController = require('../controllers/usuarioController');
 const validarUsuario = require('../middleware/validarUsuario');
 const router = Router()
 
-//algunas validaciones agregadas
+// Rutas para los usuarios
 router.get('/', usuarioController.obtenerUsuarios)
-router.get('/:id', usuarioController.obtenerUsuario)
+router.get('/:id', usuarioController.obtenerUsuario) //no lo pide la consigna
 router.post('/', validarUsuario, usuarioController.crearUsuario)
 router.put('/:id', validarUsuario, usuarioController.actualizarUsuario)
 router.delete('/:id', usuarioController.eliminarUsuario)

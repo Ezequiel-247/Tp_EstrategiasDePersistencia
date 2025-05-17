@@ -1,6 +1,5 @@
 const { Usuario } = require('../db/models')
 
-//aca los metodos get post put y delete
 const crearUsuario = async (req, res) => {
     try {
       const usuario = await Usuario.create(req.body)
@@ -22,8 +21,8 @@ const obtenerUsuarios = async (req, res) => {
 const obtenerUsuario = async (req, res) => {
     const idUsuario = req.params.id
     try {
-      const usuarios = await Usuario.findByPk(idUsuario);
-      res.json(usuarios);
+      const usuario = await Usuario.findByPk(idUsuario);
+      res.json(usuario);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
