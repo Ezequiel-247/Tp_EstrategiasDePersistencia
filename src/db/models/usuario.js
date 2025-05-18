@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       //Relacion con tabla publicacion 1:N
       this.hasMany(models.Publicacion,{
         foreignKey: "usuarioId",
-        as: "usuario"
+        as: "publicaciones"
       });
 
       //Relacion con tabla comentario -> corregido
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         //foreignKey: "idComentario", ->>>>pone como clave foranea la pk de la misma tabla
         //as: "comentario"
         foreignKey: "usuarioId",
-        as: "Usuario"
+        as: "comentario"
       })
     }
   }
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     contraseña: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,

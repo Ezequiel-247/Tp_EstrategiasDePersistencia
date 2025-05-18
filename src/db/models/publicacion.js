@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
        // foreignKey: "idComentario",   -> lo mismo que abajo
         //as: "comentario"
         foreignKey: "publicacionId",
-        as: "publicacion"
       });
 
       //corregido
