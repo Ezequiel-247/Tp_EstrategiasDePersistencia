@@ -20,7 +20,8 @@ const obtenerComentarios = async (req, res) => {
 
 const eliminarComentario = async (req, res) => {
     try {
-      const comentario = await Comentario.findByPk(req.params.id);
+      const { id } = req.params
+      const comentario = await Comentario.findByPk(id);
       if (!comentario) return res.status(404).json({ error: 'comentario no encontrado' });
       await comentario.destroy();
       res.json({ mensaje: 'comentario eliminado' });
@@ -31,7 +32,8 @@ const eliminarComentario = async (req, res) => {
 
 const actualizarComentario = async (req, res) => {
     try {
-      const comentario = await Comentario.findByPk(req.params.id);
+      const { id } = req.params
+      const comentario = await Comentario.findByPk(id);
       if (!comentario) return res.status(404).json({ error: 'comentario no encontrado' });
       await comentario.update(req.body);
       res.json(comentario);

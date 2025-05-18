@@ -1,7 +1,5 @@
 const { Usuario} = require('../db/models');
 
-
-//aca los metodos get post put y delete
 const crearUsuario = async (req, res) => {
     try {
       const usuario = await Usuario.create(req.body)
@@ -52,7 +50,7 @@ const actualizarUsuario = async (req, res) => {
     }
   }
 
-/// Controllers agregados 
+//Esto esta en duda
 const obtenerPublicacionDeUsuario = async (req, res) => {
   try {
     const { id } = req.params;

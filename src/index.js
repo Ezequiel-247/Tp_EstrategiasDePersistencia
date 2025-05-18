@@ -5,13 +5,17 @@ const publicacionRouter = require("./routes/publicacionRouter")
 const usuarioRouter = require("./routes/usuarioRouter")
 const etiquetaRouter = require("./routes/etiquetaRouter")
 const comentarioRouter = require("./routes/comentarioRouter")
+const imagenesRouter = require("./routes/imagenesRouter")
+const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
 
 app.use(express.json()) // para que la api pueda leer json
 
-app.use('/usuario', usuarioRouter); //uso de las rutas usuario
+app.use('/usuario', usuarioRouter); 
 app.use('/publicacion',publicacionRouter);
 app.use('/etiqueta', etiquetaRouter);
 app.use('/comentario',comentarioRouter);
+app.use('/imagen',imagenesRouter);
+app.use('/publicacionEtiqueta',publicacionEtiquetaRouter)
 
 
 //configurar variable de entorno

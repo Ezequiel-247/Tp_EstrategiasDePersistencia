@@ -1,4 +1,4 @@
-const { Publicacion } = require('../db/models');
+const { Publicacion, Imagen } = require('../db/models');
 
 const obtenerPublicaciones = async (req, res) =>{
     try{
@@ -6,14 +6,17 @@ const obtenerPublicaciones = async (req, res) =>{
         res.json(publicaciones)
     }
     catch(error){
-        res.json({error: error.mesagge})
+        res.status(500).json({error: error.message})
     }
 }
 
 const obtenerPublicacion = async (req, res) =>{
-    const idPublicacion = req.params.id
+    const { id } = req.params
     try{
-        const publicacion = await Publicacion.findByPk(idPublicacion)
+        const publicacion = await Publicacion.findByPk(id)
+        if (!publicacion){
+            return res.status(404).json({ error: 'Publicación no encontrada' });
+        } 
         res.json(publicacion)
     }
     catch(error){
@@ -33,10 +36,55 @@ const crearPublicacion = async (req, res) =>{
 
 const eliminarPublicacion = async (req, res) => {
     try {
-        const publicacion = await Publicacion.findByPk(req.params.id);
-        if (!publicacion) return res.status(404).json({ error: 'publicacion no encontrada' });
+        const { id } = req.params
+        const publicacion = await Publicacion.findByPk(id);
+        if (!publicacion){
+            return res.status(404).json({ error: 'publicacion no encontrada' });
+        }
         await publicacion.destroy();
         res.json({ mensaje: 'publicacion eliminada' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+
+// Eliminar una imagen específica de una publicación
+const eliminarImagenDePublicacion = async (req, res) => {
+    const { id, imagenId } = req.params;
+    try {
+        const publicacion = await Publicacion.findByPk(id);
+        if (!publicacion){
+            return res.status(404).json({ error: 'Publicación no encontrada' });
+        } 
+        const imagen = await Imagen.findOne({ where: { id: imagenId, publicacionId: id } });
+
+        if (!imagen){
+            return res.status(404).json({ error: 'Imagen no encontrada para esta publicación' });
+        } 
+        await imagen.destroy();
+        res.json({ mensaje: 'Imagen eliminada de la publicación' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Actualizar una imagen específica de una publicación
+const actualizarImagenDePublicacion = async (req, res) => {
+    const { id, imagenId } = req.params;
+    try {
+        const publicacion = await Publicacion.findByPk(id);
+        if (!publicacion){
+            return res.status(404).json({ error: 'Publicación no encontrada' });
+        }
+
+        const imagen = await Imagen.findOne({ where: { id: imagenId, publicacionId: id } });
+        if (!imagen){
+            return res.status(404).json({ error: 'Imagen no encontrada para esta publicación' });
+        } 
+        await imagen.update(req.body);
+        res.json(imagen);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,6 +95,6 @@ module.exports = {
     obtenerPublicacion,
     crearPublicacion,
     eliminarPublicacion,
-    /*eliminarUnaImagenDeLaPublicacion, /posts/{id}/images/{imageId}
-    actualizarImagenesDeUnaPublicacion /posts/{id}/images/{imageId} */
+    eliminarImagenDePublicacion, 
+    actualizarImagenDePublicacion 
 }

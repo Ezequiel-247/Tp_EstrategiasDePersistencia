@@ -1,6 +1,5 @@
 const { Etiqueta } = require('../db/models')
 
-//aca los metodos get post put y delete
 const crearEtiqueta = async (req, res) => {
     try {
       const etiqueta = await Etiqueta.create(req.body)
@@ -21,7 +20,8 @@ const obtenerEtiquetas = async (req, res) => {
 
 const eliminarEtiqueta = async (req, res) => {
     try {
-      const etiqueta = await Etiqueta.findByPk(req.params.id);
+      const { id } = req.params
+      const etiqueta = await Etiqueta.findByPk(id);
       if (!etiqueta) return res.status(404).json({ error: 'etiqueta no encontrada' });
       await etiqueta.destroy();
       res.json({ mensaje: 'etiqueta eliminada' });
@@ -32,7 +32,8 @@ const eliminarEtiqueta = async (req, res) => {
 
 const actualizarEtiqueta = async (req, res) => {
     try {
-      const etiqueta = await Etiqueta.findByPk(req.params.id);
+      const { id } = req.params
+      const etiqueta = await Etiqueta.findByPk(id);
       if (!etiqueta) return res.status(404).json({ error: 'etiqueta no encontrada' });
       await etiqueta.update(req.body);
       res.json(etiqueta);
