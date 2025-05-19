@@ -1,11 +1,8 @@
-import swaggerUI from "swagger-ui-express";
-
-import specs from "./swagger/swagger.js";
-
 
 const express = require("express");
 const app = express();
 const db = require('./db/models') //base de datos
+const {swaggerDocs} = require("./swagger/swagger")
 const publicacionRouter = require("./routes/publicacionRouter")
 const usuarioRouter = require("./routes/usuarioRouter")
 const etiquetaRouter = require("./routes/etiquetaRouter")
@@ -14,7 +11,7 @@ const imagenesRouter = require("./routes/imagenesRouter")
 const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
 
 app.use(express.json()) // para que la api pueda leer json
-app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(specs));
+
 app.use('/usuario', usuarioRouter); 
 app.use('/publicacion',publicacionRouter);
 app.use('/etiqueta', etiquetaRouter);
@@ -29,6 +26,8 @@ const PORT = 3000;
 
 app.listen(PORT, async ()=>{
     console.log(`Aplicación corriendo en el puerto: ${PORT}`)
-    await db.sequelize.sync({force:true}) //sacar force true cuando terminemos de testear 
+    await db.sequelize.sync({force:true});//sacar force true cuando terminemos de testear 
     // despues la inicializacion del sequielize se agrega con lo de la ultima clase y se quita esta linea
+    swaggerDocs(app,PORT);
 });
+
