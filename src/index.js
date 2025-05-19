@@ -1,3 +1,8 @@
+import swaggerUI from "swagger-ui-express";
+
+import specs from "./swagger/swagger.js";
+
+
 const express = require("express");
 const app = express();
 const db = require('./db/models') //base de datos
@@ -9,7 +14,7 @@ const imagenesRouter = require("./routes/imagenesRouter")
 const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
 
 app.use(express.json()) // para que la api pueda leer json
-
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(specs));
 app.use('/usuario', usuarioRouter); 
 app.use('/publicacion',publicacionRouter);
 app.use('/etiqueta', etiquetaRouter);
