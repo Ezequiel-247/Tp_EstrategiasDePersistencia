@@ -21,4 +21,4 @@
 
 🚧 **Completado y en etapa de entrega final.**  
 Se han implementado todos los requerimientos solicitados, con pruebas de funcionamiento exitosas.
-
+Se borro la carpeta modules como se pidio.
