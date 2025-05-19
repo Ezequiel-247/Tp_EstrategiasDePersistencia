@@ -1,5 +1,13 @@
 const express = require("express");
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const fs = require("fs")
+const YAML = require('yaml')
+
+const file  = fs.readFileSync('./swagger.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
+
+
 const db = require('./db/models') //base de datos
 const publicacionRouter = require("./routes/publicacionRouter")
 const usuarioRouter = require("./routes/usuarioRouter")
@@ -8,7 +16,14 @@ const comentarioRouter = require("./routes/comentarioRouter")
 const imagenesRouter = require("./routes/imagenesRouter")
 const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
 
+var options = {
+    swaggerOptions: {
+        url: "/api-docs/swagger.json",
+    },
+}
+app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
 app.use(express.json()) // para que la api pueda leer json
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/usuario', usuarioRouter); 
 app.use('/publicacion',publicacionRouter);
