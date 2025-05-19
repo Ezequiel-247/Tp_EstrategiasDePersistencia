@@ -1,4 +1,5 @@
-import swaggerJSDoc from "swagger-jsdoc";
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express")
 
 const options = {
     definicion:{
@@ -17,7 +18,7 @@ const options = {
         }
 
     },
-    apis: ('./swagger/*.yml')
+    apis: ['./swagger/*.yml']
 };
 
 const specs = swaggerJSDoc(options);
