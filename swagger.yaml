@@ -4,10 +4,8 @@ info:
   version: "1.0.0"
   description: Documentacion de la API para la red anti-social
 servers:
-  - url: "localhost:3000"
-    description: Server
-  - url: "localhost:3000"
-    description: Local
+  - url: "http://localhost:3000"
+    description: Servidor local
 components:
   schemas:
   
@@ -34,6 +32,9 @@ components:
           type: string
           format: date-time
           example: '2023-10-01T12:00:00Z'
+        usuarioId:
+          type: number
+          example: '1'
        
     Comentario:
       type: object
@@ -45,6 +46,12 @@ components:
           type: string
           format: date-time
           example: '2023-10-01T12:00:00Z'
+        publicacionId:
+          type: number
+          example: '1'
+        usuarioId:
+          type: number
+          example: '1'
           
     Etiqueta:
       type: object
@@ -59,11 +66,24 @@ components:
         ruta:
           type: string
           example: "/uploads/imagenes-1620123456789.jpg"
+        publicacionId:
+          type: number
+          example: '1'
+
+    publicacionEtiqueta:
+      type: object
+      properties:
+        publicacionId:
+          type: number
+          example: "1"
+        etiquetaId:
+          type: number
+          example: '1'
           
 paths:
   /usuario:
     get:
-      summary: Obtener todos los usuarios
+      summary: Obtener todos los usuarios de la red social
       tags:
         - Usuario
       responses:
@@ -305,6 +325,70 @@ paths:
           description: Comentario no encontrado
         '500':
           description: Error interno del servidor
+
+  /publicaciones/{id}/imagenes/{imagenId}:
+    put:
+      summary: Actualizar una imagen de una publicación
+      tags:
+        - Publicacion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la publicación
+        - name: imagenId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la imagen a actualizar
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imagen:
+                  type: string
+                  format: binary
+                  description: Nueva imagen a subir
+      responses:
+        '200':
+          description: Imagen actualizada exitosamente
+        '400':
+          description: Solicitud incorrecta
+        '404':
+          description: Publicación o imagen no encontrada
+        '500':
+          description: Error interno del servidor
+
+    delete:
+      summary: Eliminar una imagen de una publicación
+      tags:
+        - Publicacion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la publicación
+        - name: imagenId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la imagen a eliminar
+      responses:
+        '200':
+          description: Imagen eliminada exitosamente
+        '404':
+          description: Publicación o imagen no encontrada
+        '500':
+          description: Error interno del servidor
           
   /Etiqueta:
     get:
@@ -380,7 +464,6 @@ paths:
         '500':
           description: Error interno del servidor
   
-  
   /Imagen:
     get:
       summary: Obtener todas las imagenes
@@ -428,3 +511,50 @@ paths:
           description: Tipo de archivo no permitido (solo se permiten imagenes)
         '500':
           description: Error al crear la imagen
+
+  /Imagen/{id}:
+    put:
+      summary: Actualizar una imagen por id 
+      tags:
+        - Imagen
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la imagen a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Imagen'
+      responses:
+        '201':
+          description: Imagen actualizada exitosamente
+        '400':
+          description: Solicitud incorrecta
+        '404':
+          description: Imagen no encontrada
+        '500':
+          description: Error interno del servidor
+    delete:
+      summary: Eliminar una imagen por ID
+      tags:
+        - Imagen
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la imagen a eliminar
+      responses:
+        '204':
+          description: Imagen eliminada exitosamente
+        '404':
+          description: Imagen no encontrada
+        '500':
+          description: Error interno del servidor 
+  

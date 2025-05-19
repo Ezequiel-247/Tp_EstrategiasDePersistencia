@@ -8,6 +8,7 @@ router.get('/', publicacionController.obtenerPublicaciones)
 router.get('/:id', publicacionController.obtenerPublicacion)
 router.post('/', validarPublicacion, publicacionController.crearPublicacion)
 router.delete('/:id', publicacionController.eliminarPublicacion)
-
+router.put('/:id/imagenes/:imagenId', publicacionController.actualizarImagenDePublicacion)
+router.delete('/:id/imagenes/:imagenId', publicacionController.eliminarImagenDePublicacion)
 
 module.exports = router

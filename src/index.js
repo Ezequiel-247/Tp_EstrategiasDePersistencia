@@ -20,7 +20,7 @@ app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
 app.use(express.json()) // para que la api pueda leer json
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api', router); 
+app.use('', router); 
 
 
 //configurar variable de entorno
