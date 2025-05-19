@@ -22,17 +22,18 @@ const crearPublicacionEtiqueta = async (req, res) => {
 const obtenerPublicacionesEtiquetas = async (req, res) => {   
     try {
       const { id } = req.params
-      const etiqueta = await Etiqueta.findByPk(id, {      
-        include: {
-        association: 'publicaciones',     // nombre del alias definido en el modelo
-        attributes: ['id', 'descripcion'], // columnas de Publicacion que quiero traer
-        through: { attributes: [] }       // oculto los datos de la tabla intermedia
-        }
-      })
-      if (!etiqueta){
-        return res.status(404).json({ mensaje: 'Etiqueta no encontrada' });
+       const publicacion = await Publicacion.findOne({
+      where: { id },
+      include: {
+        model: Etiqueta,
+        as: "etiquetas",  
+        through: { attributes: [] } 
       }
-      res.json(etiqueta.publicaciones)
+    });
+      if (!publicacion){
+        return res.status(404).json({ mensaje: 'publicacion no encontrada' });
+      }
+      res.json(publicacion.etiquetas)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }

@@ -9,12 +9,7 @@ const swaggerDocument = YAML.parse(file)
 
 
 const db = require('./db/models') //base de datos
-const publicacionRouter = require("./routes/publicacionRouter")
-const usuarioRouter = require("./routes/usuarioRouter")
-const etiquetaRouter = require("./routes/etiquetaRouter")
-const comentarioRouter = require("./routes/comentarioRouter")
-const imagenesRouter = require("./routes/imagenesRouter")
-const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
+const router = require("./routes/index")
 
 var options = {
     swaggerOptions: {
@@ -25,12 +20,7 @@ app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
 app.use(express.json()) // para que la api pueda leer json
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/usuario', usuarioRouter); 
-app.use('/publicacion',publicacionRouter);
-app.use('/etiqueta', etiquetaRouter);
-app.use('/comentario',comentarioRouter);
-app.use('/imagen',imagenesRouter);
-app.use('/publicacionEtiqueta',publicacionEtiquetaRouter)
+app.use('/api', router); 
 
 
 //configurar variable de entorno
