@@ -12,7 +12,7 @@
 
 ## Modelo de la base de datos
 
-![Descripción de la imagen](./Tp_EstrategiasDePersistencia/Modelo%20db%20para%20Tp.png)
+![Descripción de la imagen](https://raw.githubusercontent.com/Ezequiel-247/Tp_EstrategiasDePersistencia/master/Modelo%20db%20para%20Tp.png)
 
 
 ---
