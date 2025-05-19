@@ -19,6 +19,18 @@ const publicarImagen = async(req,res)=>{
     }
 };
 
+const actualizarImagen = async(req,res)=>{
+   try {
+      const { id } = req.params
+      const imagen = await Imagen.findByPk(id);
+      if (!imagen) return res.status(404).json({ error: 'imagen no encontrada' });
+      await imagen.update(req.body);
+      res.json(imagen);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+};
+
 const eliminarImagen = async (req,res) => {
     try{
         const {id} = req.params
@@ -33,5 +45,6 @@ const eliminarImagen = async (req,res) => {
 module.exports = {
     obtenerImagenes, 
     publicarImagen, 
-    eliminarImagen
+    eliminarImagen,
+    actualizarImagen
 };

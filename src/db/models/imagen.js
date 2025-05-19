@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       //Relacion con la tabla Publicacion.
       
       this.belongsTo(models.Publicacion,{
-        foreignKey: "publicacionId", //esta bien
+        foreignKey: "publicacionId",
         as: "imagenes"
       })
     }
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Imagen',
+    timestamps: false
   });
   return Imagen;
 };
