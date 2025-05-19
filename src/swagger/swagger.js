@@ -1,30 +1,17 @@
-const swaggerJSDoc = require("swagger-jsdoc");
-const swaggerUI = require("swagger-ui-express")
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
-const options = {
-    definicion:{
-        openapi: '3.0.0',
-        info:{
-            title : 'Red Anti-Social',
-            version: '1.0.0',
-            description: '',
-            contact:{
-                name: 'Developer'
-            },
-            servers:[{
-                url:'localhost:3000',
-                description: 'Local server'
-            }]
-        }
-
-    },
-    apis: ['./swagger/*.yml']
-};
-
-const specs = swaggerJSDoc(options);
-
-const swaggerDocs = (app, port) =>{
-    app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(specs));
+var options = {
+    swaggerOptions : { 
+        url : "/api-docs/swagger.json" , 
+    } , 
 }
 
-module.exports = {swaggerDocs}
+app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
+app.use('/api-docs', function(req, res, next){
+    swaggerDocument.host = req.get('host');
+    req.swaggerDoc = swaggerDocument;
+    next();
+}, swaggerUi.serveFiles(swaggerDocument, options), swaggerUi.setup());

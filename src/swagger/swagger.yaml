@@ -29,7 +29,7 @@ components:
       properties:
         descripcion:
           type: string
-          example: Este es un nuevo post
+          example: Este es un nuevo publicacion
         fechaDePublicacion: 
           type: string
           format: date-time
