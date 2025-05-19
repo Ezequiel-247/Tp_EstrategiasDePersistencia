@@ -1,29 +1,27 @@
 
 const express = require("express");
 const app = express();
-const db = require('./db/models') //base de datos
+const swaggerUi = require('swagger-ui-express');
 const fs = require("fs")
 const YAML = require('yaml')
 
-const file  = fs.readFileSync('./src/swagger.yaml', 'utf8')
+const file  = fs.readFileSync('./swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file)
 
 
-const publicacionRouter = require("./routes/publicacionRouter")
-const usuarioRouter = require("./routes/usuarioRouter")
-const etiquetaRouter = require("./routes/etiquetaRouter")
-const comentarioRouter = require("./routes/comentarioRouter")
-const imagenesRouter = require("./routes/imagenesRouter")
-const publicacionEtiquetaRouter = require("./routes/publicacionEtiquetaRouter")
+const db = require('./db/models') //base de datos
+const router = require("./routes/index")
 
+var options = {
+    swaggerOptions: {
+        url: "/api-docs/swagger.json",
+    },
+}
+app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
 app.use(express.json()) // para que la api pueda leer json
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/usuario', usuarioRouter); 
-app.use('/publicacion',publicacionRouter);
-app.use('/etiqueta', etiquetaRouter);
-app.use('/comentario',comentarioRouter);
-app.use('/imagen',imagenesRouter);
-app.use('/publicacionEtiqueta',publicacionEtiquetaRouter)
+
+app.use('/api', router); 
 
 
 //configurar variable de entorno
