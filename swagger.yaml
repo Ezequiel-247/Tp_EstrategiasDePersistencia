@@ -187,7 +187,7 @@ paths:
                 userId:
                   type: integer
                   example: 1
-                content:
+                contenido:
                   type: string
                   example: Esta es una nueva publicacion
                 imagenes:
@@ -195,10 +195,10 @@ paths:
                   items:
                     type: string
                     format: binary
-                  description: 'Imagenes a subir (hasta 5, opcional). Formatos aceptados: JPG, PNG, GIF. Tamaño mÃ¡ximo: 5MB por archivo.'
+                  description: 'Imagenes a subir (hasta 5, opcional). Formatos aceptados: JPG, PNG, GIF. Tamaño mÃ¡ximo: 5MB por archivo. (no lo pudimos desarrollar. Las imagenes se agregan desde la propia ruta)'
               required:
                 - userId
-                - content
+                - contenido
       responses:
         '201':
           description: Publicacionn creada exitosamente
