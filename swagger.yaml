@@ -479,12 +479,6 @@ paths:
       responses:
         '200':
           description: Lista de etiquetas asociadas a la publicación
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Etiqueta'
         '404':
           description: Publicación no encontrada
         '500':
