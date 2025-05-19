@@ -16,10 +16,6 @@
     "joi": "^17.13.3",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
-<<<<<<< HEAD
-    "swagger-jsdoc": "^6.2.8",
-=======
->>>>>>> 6ab27720a598922873af2408ad93f3ef4fd4a214
     "swagger-ui-express": "^5.0.1",
     "yaml": "^2.8.0"
   },
